@@ -4,9 +4,19 @@
 
   {{ $title := print .Site.Title " | " .Title }}
   {{ $description := print .Description }}
+  {{ $image := "" }}
 
-  {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
-  {{ if .IsHome }}{{ $description = .Site.Params.Description }}{{ end }}
+  {{ if .IsHome }}
+    {{ $title = .Site.Title }}
+    {{ $description = .Site.Params.Description }}
+  {{ end }}
+
+  {{ if .Params.images }}
+    {{ $image = index .Params.images 0 }}
+    {{ $image = print .Permalink $image }}
+  {{ else }}
+    {{ $image = "media/images/logo.png" | absURL }}
+  {{ end }}
 
   {{ with resources.Get "css/styles.css" }}
     {{ $opts := dict "minify" hugo.IsProduction }}
@@ -17,6 +27,22 @@
 
   <title>{{ $title }}</title>
   <meta name="description" content="{{ $description }}" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description }}" />
+  <meta property="og:image" content="{{ $image }}" />
+  <meta property="og:site_name" content="{{ .Site.Title }}" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="{{ .Permalink }}" />
+  <meta name="twitter:title" content="{{ $title }}" />
+  <meta name="twitter:description" content="{{ $description }}" />
+  <meta name="twitter:image" content="{{ $image }}" />
 
   <script defer data-domain="cca-mc.com" src="https://plausible.io/js/plausible.js"></script>
 
