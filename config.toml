@@ -1,4 +1,4 @@
-baseURL = "https://laurentqro.github.io/cca-website/"
+baseURL = "https://cqro.github.io/cca-website/"
 languageCode = "fr-fr"
 title = "Christian Curau Architecte - CCA"
 theme = "cca"
