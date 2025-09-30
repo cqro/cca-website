@@ -18,6 +18,11 @@
     {{ $image = "media/images/logo.png" | absURL }}
   {{ end }}
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   {{ with resources.Get "css/styles.css" }}
     {{ $opts := dict "minify" hugo.IsProduction }}
     {{ with . | css.TailwindCSS $opts }}
